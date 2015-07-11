@@ -15,7 +15,7 @@
         <item >【一周推荐】其他排行</item>
     </string-array>
 
-    <color name="item1" >#e69138</color>
+    <color name="item1" >#8470FF</color>
     <color name="item2" >#00ffffff</color>
     
 	<string name="stm_url_dajiatuijian">http://www.songtaste.com/music/</string>

@@ -1,5 +1,8 @@
 package com.zihao;
 
+import java.util.ArrayList;
+
+import com.zihao.adapter.STSongMessage;
 import com.zihao.service.MusicService1;
 
 import android.app.Application;
@@ -8,6 +11,9 @@ public class Date extends Application {
 
 	private MusicService1 musicService1;
 	private String mp3info;
+	private int playingPosition;
+	private ArrayList<STSongMessage> list ;
+	
 	
 
 	
@@ -40,5 +46,30 @@ public class Date extends Application {
 		// TODO Auto-generated method stub
 		musicService1 = new MusicService1();
 		super.onCreate();
+	}
+
+
+
+	public int getPlayingPosition() {
+		return playingPosition;
+	}
+
+
+
+	public void setPlayingPosition(int playingPosition) {
+		this.playingPosition = playingPosition;
+	}
+
+
+
+	public ArrayList<STSongMessage> getList() {
+		
+		return list;
+	}
+
+
+
+	public void setList(ArrayList<STSongMessage> list) {
+		this.list = list;
 	}
 }

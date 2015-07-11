@@ -4,22 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +16,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.zihao.Date;
-import com.zihao.PlayView;
-import com.zihao.R.string;
-import com.zihao.service.MusicService1;
+import com.zihao.MainActivity;
 import com.zihao.ui.ImageService;
 
 public class tryhttp {
@@ -59,7 +45,7 @@ public class tryhttp {
 
 	public static STSongListAdapter testGetHtml(Context context,
 			String urlpath, String zhengze, int sNameNumb, int sIdNumb,
-			int singerNumb, int sImgNumb,Date app) throws Exception {
+			int singerNumb, int sImgNumb,Date app,String listtop) throws Exception {
 		URL url = new URL(urlpath);
 
 		tryhttp.zhengze = zhengze;
@@ -75,6 +61,9 @@ Log.i("gethtml", "获取列表数据成功");
 
 			// 实例化列表容器
 			list = new ArrayList<STSongMessage>();
+			list.add(new STSongMessage(listtop, songID, singer,
+					SingerImg,songUri,context,new Intent(context, MainActivity.class)));
+
 
 			Pattern p = Pattern.compile(zhengze, Pattern.CASE_INSENSITIVE
 					| Pattern.DOTALL);
@@ -119,7 +108,7 @@ Log.i("gethtml", "获取列表数据成功");
 					}
 				
 					list.add(new STSongMessage(songName, songID, singer,
-							SingerImg,songUri,context,new Intent(context, PlayView.class)));
+							SingerImg,songUri,context,new Intent(context, MainActivity.class)));
 
 				}
 			} else {
@@ -164,13 +153,14 @@ Log.i("gethtml", "获取列表数据成功");
 						
 						
 						list.add(new STSongMessage(songName, songID, singer,
-								SingerImg,songUri,context,new Intent(context, PlayView.class)));
+								SingerImg,songUri,context,new Intent(context, MainActivity.class)));
 					
 						}
 					index++;
 					}
 
 			}
+		app.getMusicService1().initMp3List(list,app);
 		
 			adapter = new STSongListAdapter(context, list,app);
 			System.out.println(list);
@@ -283,4 +273,5 @@ System.out.println(url);
 		}}
 		return singerIMGID;}
 
+	
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,10 +15,17 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +35,6 @@ import com.zihao.adapter.STSongListAdapter;
 import com.zihao.adapter.STSongListAdapter.ViewHolder;
 import com.zihao.adapter.STSongMessage;
 import com.zihao.adapter.tryhttp;
-import com.zihao.service.MusicService1;
 import com.zihao.ui.DragLayout;
 import com.zihao.ui.DragLayout.DragListener;
 import com.zihao.ui.RefreshableView.PullToRefreshListener;
@@ -55,6 +60,10 @@ public class MainActivity extends Activity {
 	private Date app;
 	private TextView menuListTop;
 	
+	private SeekBar seekBar ;
+	private ImageView singerIMG;
+	private ImageView btn_play,btn_last,btn_next,btn_back;
+	private TextView lab_songName,lab_songid;
 	
 	
 
@@ -62,7 +71,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		
@@ -73,7 +82,7 @@ public class MainActivity extends Activity {
 		refreshableView = (com.zihao.ui.RefreshableView) findViewById(R.id.refreshable_view);
 
 		mDragLayout = (DragLayout) findViewById(R.id.dl);
-		menuListTop = (TextView) findViewById(R.id.menuListTop);
+		menuListTop = (TextView) findViewById(R.id.playingName);
 		mDragLayout.setDragListener(new DragListener() {// 设置总窗体
 					@Override
 					public void onOpen() {
@@ -150,63 +159,52 @@ public class MainActivity extends Activity {
 				mDragLayout.close();
 				listRefresh();
 				Log.d("listindex", String.format("%s", arg2));
-				menuListTop.setText(sTMenuStrings[arg2]);
+				menuListTop.setText("正在读取数据..."+sTMenuStrings[arg2]);
 				
 			}
 			
 			
 		});
-		
-		
-		
+//		声明顶部控件
+		seekBar =  (SeekBar) findViewById(R.id.seekBar1);
+		app.getMusicService1().musicServiceOnCreate(seekBar);
+		lab_songid = (TextView) findViewById(R.id.playingID);
+		lab_songName = (TextView) findViewById(R.id.playingName);
+		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
+		app.getMusicService1().initMp3Info(lab_songid, lab_songName, singerIMG);
+//		btn_back = (ImageView) findViewById(R.id.btn_back);
+//		btn_play = (ImageView) findViewById(R.id.btn_play);
+//		btn_last = (ImageView) findViewById(R.id.btn_last);
+//		btn_next = (ImageView) findViewById(R.id.btn_next);
+//		
+
 
 		
 		songListView = (ListView) findViewById(R.id.songlistView);
+//		设置列表动画
+	    AnimationSet set = new AnimationSet(true);
+			Animation animation = new TranslateAnimation(500, 0, 0, 0);
+			animation.setDuration(500);
+			Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+		    alphaAnimation.setDuration(500);
+	        set.addAnimation(animation);		
+	        set.addAnimation(alphaAnimation);		
+			LayoutAnimationController laController = new LayoutAnimationController(set);
+			laController.setOrder(LayoutAnimationController.ORDER_NORMAL);
+			songListView.setLayoutAnimation(laController);
+			
 		indexMenu =  getString(R.string.stm_url_dajiatuijian);
 		zhengze = getString(R.string.stm_zhengze_dajiatuijian);
 		songListView.setItemsCanFocus(true);
 		menuListTop.setText(sTMenuStrings[1]);
+		
 		try {
-//			adapter = com.zihao.adapter.tryhttp.testGetHtml(MainActivity.this,
-//					indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb);
-//			System.out.print("Adapter成功");
-			GetMenu getMenu = new GetMenu(this,app, songListView, indexMenu, zhengze, sNameNumb, sIdNumb, singerNumb, sImgNumb);
+			GetMenu getMenu = new GetMenu(this,app, songListView, indexMenu, zhengze, sNameNumb, sIdNumb, singerNumb, sImgNumb,(String) menuListTop.getText());
 			getMenu.execute();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-//		songListView.setAdapter(adapter);
-		
-	songListView.setOnItemClickListener(new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-//			if (mLastTouchTag != null) {
-//				View temp = arg0.findViewWithTag(mLastTouchTag);
-//				if (temp != null) {
-//					View footTemp = temp.findViewById(R.id.item_footer);
-//					if (footTemp != null
-//							&& (footTemp.getVisibility() != View.GONE)) {
-//						footTemp.startAnimation(new ViewExpandAnimation(
-//								footTemp));
-//					}
-//				}
-//			}
-//			mLastTouchTag = (ViewHolder) arg1.getTag();
-//			// onion555 end
-//			View footer = arg1.findViewById(R.id.item_footer);
-//			footer.startAnimation(new ViewExpandAnimation(footer));
-//			
-//		}
-//	});
-			Toast.makeText(MainActivity.this, "ssssss222222222", Toast.LENGTH_SHORT).show();
-		
-		
-		}});
-		
-		
 	
 		//
 
@@ -227,7 +225,7 @@ public class MainActivity extends Activity {
 						try {
 							adapter = com.zihao.adapter.tryhttp.testGetHtml(
 									MainActivity.this,
-									indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app);
+									indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app,(String) menuListTop.getText());
 							Log.d("adapter try ", "adapter 成功");
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -248,7 +246,7 @@ public class MainActivity extends Activity {
 		}, 0);
 
 		// 设置左边窗体按钮 导航栏左边的bar
-		menuSettingBtn = (ImageButton) findViewById(R.id.menu_imgbtn);
+		menuSettingBtn = (ImageButton) findViewById(R.id.menu_imgbtn1);
 		menuSettingBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -263,7 +261,7 @@ public class MainActivity extends Activity {
 				try {
 					adapter = com.zihao.adapter.tryhttp.testGetHtml(
 							MainActivity.this,
-							indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app);
+							indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app,(String) menuListTop.getText());
 					Log.d("adapter try ", "adapter 成功");
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -2,22 +2,126 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#575757"
+    android:background="#f7f2ee"
     android:orientation="vertical" >
     
+  <!--  android:background="#f7f2ee" --> 
       
-           
-    <RelativeLayout
+           <LinearLayout 
+               android:layout_width="fill_parent"
+               android:layout_height="90dp"
+               android:orientation="vertical"
+               android:background="@drawable/rad_h_hbg">
+                                        <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_play"
+        android:layout_alignParentLeft="true" />
+                                        <LinearLayout 
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            >
+        <com.zihao.ui.CircleImageView
+        android:id="@+id/img_singerimg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/app_ico" />
+         
+        
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+                    <TextView
+            android:id="@+id/playingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+                     <TextView
+            android:id="@+id/playingID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+         
+            <LinearLayout
+                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                  <ImageButton
+            android:id="@+id/menu_imgbtn1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/menu" />
+                             <ImageButton
+            android:id="@+id/menu_imgbtn_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/to_back" />
+                                        <ImageButton
+            android:id="@+id/menu_imgbtn_last"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/to_lift" />
+                                                   <ImageButton
+            android:id="@+id/menu_imgbtn_play"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/play" />
+                                                  
+                                                   <ImageButton
+            android:id="@+id/menu_imgbtn_next"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/to_right" />
+                                        
+                    
+            </LinearLayout>
+            
+        </LinearLayout>
+                                        </LinearLayout>
+                                        
+
+
+    
+           </LinearLayout>
+   <!--   <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="90dp"
         android:orientation="horizontal"
         android:divider="@null" 
-        android:background="#20ffffff"
-        >
-        
-       <!--   android:background="#00C5CD"-->
+        android:background="@drawable/menub_bg"
+>
+ -->        
+       <!--   android:background="#00C5CD" -->
 
-        <ImageButton
+       <!--   <ImageButton
             android:id="@+id/menu_imgbtn"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -43,8 +147,16 @@
            android:layout_marginTop="0dp"
            
             android:background="@drawable/seach" />
+           <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_play"
+        android:layout_alignParentLeft="true" />
     
     </RelativeLayout>
+    
+    -->
  
          <com.zihao.ui.RefreshableView
         android:id="@+id/refreshable_view"
@@ -54,17 +166,13 @@
         >
 
         <ListView
+            android:divider="#FA8072"
               android:fadingEdge="none"
-            android:dividerHeight="0.3dp"
+            android:dividerHeight="0.1dp"
             android:id="@+id/songlistView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
           android:focusable="false"
-          
-            
-            
-        android:divider="@null"
-        
         android:cacheColorHint="@android:color/transparent"
              >
         </ListView>

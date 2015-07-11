@@ -64,7 +64,7 @@
         android:text="ID:45646546" />
 
     <ImageView
-        android:id="@+id/btn_play"
+        android:id="@+id/btn_plays "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -82,7 +82,7 @@
         android:textColor="#ffffff" />
 
     <ImageView
-        android:id="@+id/btn_last"
+        android:id="@+id/btn_lastw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -90,7 +90,7 @@
         android:src="@drawable/to_lift" />
 
     <ImageView
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_nexte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -98,7 +98,7 @@
         android:src="@drawable/to_right" />
 
     <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/seekBar11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_play"

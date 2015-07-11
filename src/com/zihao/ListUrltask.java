@@ -81,7 +81,10 @@ ListUrltask.app=app;
 		// 这里的result就是上面doInBackground执行后的返回值，所以这里是"执行完毕"
 		super.onPostExecute(result);
 		try {
-			app.getMusicService1().backplay(result);
+//			app.getMusicService1().backplay(result);
+			
+		
+			app.getMusicService1().play(result);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

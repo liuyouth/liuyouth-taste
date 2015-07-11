@@ -13,12 +13,13 @@ public class GetMenu extends AsyncTask<Integer, Integer, STSongListAdapter> {
 	private ListView songListView;
 	private String indexMenu;
 	private String zhengze;
+	private String listtop;
 	private int sNameNumb=2,sIdNumb=3,sImgNumb=6,singerNumb=4;
 	private Date app;
 	
 	
 	
-	public GetMenu(Context context,Date app,ListView songListView,String indexMenu,String zhengze,int sNameNumb,int sIdNumb,int singerNumb,int sImgNumb) {
+	public GetMenu(Context context,Date app,ListView songListView,String indexMenu,String zhengze,int sNameNumb,int sIdNumb,int singerNumb,int sImgNumb,String listtop) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.songListView=songListView;
@@ -29,6 +30,7 @@ public class GetMenu extends AsyncTask<Integer, Integer, STSongListAdapter> {
 		this.sIdNumb =sIdNumb;
 		this.sImgNumb=sImgNumb;
 		this.singerNumb =singerNumb;
+		this.listtop =listtop;
 		
 		
 	}
@@ -48,7 +50,7 @@ public class GetMenu extends AsyncTask<Integer, Integer, STSongListAdapter> {
 		// TODO Auto-generated method stub
 		try {
 			adapter = com.zihao.adapter.tryhttp.testGetHtml(context,
-					indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app);
+					indexMenu,zhengze,sNameNumb,sIdNumb,singerNumb,sImgNumb,app,listtop);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

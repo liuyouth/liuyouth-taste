@@ -2,8 +2,12 @@ package com.zihao.service;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.zihao.Date;
+import com.zihao.adapter.STSongMessage;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,8 +15,10 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Environment;
 import android.os.IBinder;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 public class MusicService1 extends Service implements Serializable {
 
@@ -20,10 +26,28 @@ public class MusicService1 extends Service implements Serializable {
 	private boolean isPause = false;
 	private boolean isReleased = false;
 	private MediaPlayer mediaPlayer = null;
+	public MediaPlayer getMediaPlayer() {
+		return mediaPlayer;
+	}
+
+
+	public void setMediaPlayer(MediaPlayer mediaPlayer) {
+		this.mediaPlayer = mediaPlayer;
+	}
+
+
+
+
 	private SeekBar seekBar;
 	boolean isTimerRunning = true;
     boolean isChanging = false;
-
+	private ImageView singerIMG;
+	private ImageView btn_play,btn_last,btn_next,btn_back;
+	private TextView lab_songName,lab_songid;
+	private Date app; 
+	private ArrayList<STSongMessage> list ;
+	
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -34,6 +58,16 @@ public class MusicService1 extends Service implements Serializable {
 	public MusicService1() {
 		mediaPlayer = new MediaPlayer();
 
+	}
+	
+	public void initMp3Info(TextView ID,TextView Name,ImageView singerImageView) {
+		lab_songid = ID ;
+		lab_songName = Name;
+		singerIMG = singerImageView;
+	}
+	public void initMp3List( ArrayList<STSongMessage> list,Date app ) {
+		this.list = list ; 
+		this.app = app;
 	}
 public void musicServiceOnCreate(SeekBar seekBar) {
 	this.seekBar=seekBar;
@@ -80,6 +114,11 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 	public void play(String mp3info) throws IllegalArgumentException, SecurityException, IllegalStateException, IOException {
 	
 		
+		
+
+		lab_songid.setText(list.get(app.getPlayingPosition()).getSongID());
+		singerIMG.setImageBitmap(list.get(app.getPlayingPosition()).getSingerImg());
+		lab_songName.setText(list.get(app.getPlayingPosition()).getSongName());
 		mediaPlayer.reset();
 		mediaPlayer.setDataSource(mp3info);
 		mediaPlayer.prepare();
