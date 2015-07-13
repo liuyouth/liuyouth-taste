@@ -160,6 +160,7 @@ Log.i("gethtml", "获取列表数据成功");
 					}
 
 			}
+			app.setList(list);
 		app.getMusicService1().initMp3List(list,app);
 		
 			adapter = new STSongListAdapter(context, list,app);

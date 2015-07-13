@@ -426,16 +426,17 @@ public class STSongListAdapter extends BaseAdapter {
 		
 		if (0 == list.get(position).getIsPlaying()) {
 			
-			holder.isplaying.setText("_");
-			ListUrltask urltask = new ListUrltask(app,holder.text,list.get(position).getSongID());
+//			holder.isplaying.setText("_");
+			ListUrltask urltask = new ListUrltask(app,list.get(position).getSongID());
 			urltask.execute();
 			urltask = null;
 			list.get(position).setIsPlaying(1);
 			app.setPlayingPosition(position);
+			
 		} else if (1 == list.get(position).getIsPlaying()) {
 			
       		
-      		holder.isplaying.setText("");
+//      		holder.isplaying.setText("");
       	app.getMusicService1().stop();
       	list.get(position).setIsPlaying(0);
 		}

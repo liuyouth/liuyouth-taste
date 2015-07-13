@@ -27,7 +27,6 @@ public class ViewExpandAnimation extends Animation {
 	public ViewExpandAnimation(View view, int duration){
 		animationSettings(view, duration);
 	}
-	
 	private void animationSettings(View view, int duration){
 		setDuration(duration);
 		mAnimationView = view;

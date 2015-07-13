@@ -35,11 +35,11 @@ public class ListUrltask extends AsyncTask<Integer, Integer, String> {
 	
 	
 	
-	public ListUrltask(Date app,TextView tv,String songid) {
+	public ListUrltask(Date app,String songid) {
 		// TODO Auto-generated constructor stub
 		stringExtra = songid;
 ListUrltask.app=app;
-		ListUrltask.tv = tv;
+	
 		
 	}
 

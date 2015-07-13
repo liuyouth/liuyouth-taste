@@ -1,5 +1,6 @@
 package com.zihao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -62,7 +64,7 @@ public class MainActivity extends Activity {
 	
 	private SeekBar seekBar ;
 	private ImageView singerIMG;
-	private ImageView btn_play,btn_last,btn_next,btn_back;
+	private ImageView btn_play,btn_last,btn_next,btn_like;
 	private TextView lab_songName,lab_songid;
 	
 	
@@ -166,17 +168,7 @@ public class MainActivity extends Activity {
 			
 		});
 //		声明顶部控件
-		seekBar =  (SeekBar) findViewById(R.id.seekBar1);
-		app.getMusicService1().musicServiceOnCreate(seekBar);
-		lab_songid = (TextView) findViewById(R.id.playingID);
-		lab_songName = (TextView) findViewById(R.id.playingName);
-		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
-		app.getMusicService1().initMp3Info(lab_songid, lab_songName, singerIMG);
-//		btn_back = (ImageView) findViewById(R.id.btn_back);
-//		btn_play = (ImageView) findViewById(R.id.btn_play);
-//		btn_last = (ImageView) findViewById(R.id.btn_last);
-//		btn_next = (ImageView) findViewById(R.id.btn_next);
-//		
+		initPlay();
 
 
 		
@@ -280,6 +272,50 @@ public class MainActivity extends Activity {
 		}.execute(null, null, null);
 
 	}
+	
+	public void initPlay() {
+		seekBar =  (SeekBar) findViewById(R.id.seekBar1);
+		app.getMusicService1().musicServiceOnCreate(seekBar);
+		lab_songid = (TextView) findViewById(R.id.playingID);
+		lab_songName = (TextView) findViewById(R.id.playingName);
+		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
+		app.getMusicService1().initMp3Info(lab_songid, lab_songName, singerIMG);
+		btn_like = (ImageView) findViewById(R.id.menu_imgbtn_like);
+		btn_play = (ImageView) findViewById(R.id.menu_imgbtn_play);
+		btn_last = (ImageView) findViewById(R.id.menu_imgbtn_last);
+		btn_next = (ImageView) findViewById(R.id.menu_imgbtn_next);
+		btn_last.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				int inte = app.getPlayingPosition();
+				inte = inte -1 ;
+			playingmusic(inte);
+			
+			}
+		});
+
+	}
+	
+	protected void playingmusic(int position) {
+		// TODO Auto-generated method stub
+		
+		if (0 == list.get(position).getIsPlaying()) {
+			
+//			holder.isplaying.setText("_");
+			ListUrltask urltask = new ListUrltask(app,list.get(position).getSongID());
+			urltask.execute();
+			urltask = null;
+			list.get(position).setIsPlaying(1);
+			app.setPlayingPosition(position);
+		} else if (1 == list.get(position).getIsPlaying()) {
+			
+      		
+//      		holder.isplaying.setText("");
+      	app.getMusicService1().stop();
+      	list.get(position).setIsPlaying(0);}
+		}
 	
     @Override  
     public boolean onKeyDown(int keyCode, KeyEvent event) {  

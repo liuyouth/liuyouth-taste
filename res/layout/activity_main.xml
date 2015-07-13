@@ -3,7 +3,7 @@
     android:id="@+id/dl"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#2E3C4C"
+    android:background="@drawable/bg"
     android:clickable="true"
     android:orientation="vertical" 
     >

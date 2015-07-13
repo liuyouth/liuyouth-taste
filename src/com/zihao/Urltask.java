@@ -30,15 +30,15 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 	// 后面尖括号内分别是参数（例子里是线程休息时间），进度(publishProgress用到)，返回值 类型
 	private static String songUri = null;
 	private static String stringExtra=null;
-	private static TextView tv;
+
 	
 	
 	
-	public Urltask(TextView tv,String songid) {
+	public Urltask(String songid) {
 		// TODO Auto-generated constructor stub
 		stringExtra = songid;
 
-		Urltask.tv = tv;
+		
 		
 	}
 
@@ -56,7 +56,7 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 	protected String doInBackground(Integer... params) {
 		// 第二个执行方法,onPreExecute()执行完后执行
 		try {
-			getSongUri(stringExtra);
+			getSongUri();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,7 +79,6 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 		// doInBackground返回时触发，换句话说，就是doInBackground执行完后触发
 		// 这里的result就是上面doInBackground执行后的返回值，所以这里是"执行完毕"
 		super.onPostExecute(result);
-		tv.setText(result);
 		
 //		app.setMp3info(songUri);
 		
@@ -87,9 +86,9 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 	}
 	
 
-	public static String getSongUri(String songid) throws Exception {
+	public static String getSongUri() throws Exception {
 //		URL url1 = new URL("http://www.songtaste.com/song/" + songid + "/");
-		URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
+		URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + stringExtra + "/");
 		HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
 		conn.setConnectTimeout(6 * 1000);
 		conn.setRequestMethod("GET");
@@ -117,7 +116,7 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 				 */
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("str", songUri));
-				params.add(new BasicNameValuePair("sid", songid));
+				params.add(new BasicNameValuePair("sid", stringExtra));
 				params.add(new BasicNameValuePair("t", "0"));
 				try {
 					/* 发出HTTP request */
@@ -152,7 +151,7 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 			if (songUri=="http://songtaste.com/404.html?3=") {
 				
 			
-				URL url2 = new URL("http://www.songtaste.com/song/" + songid + "/");
+				URL url2 = new URL("http://www.songtaste.com/song/" + stringExtra + "/");
 //				URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
 				HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
 				conn2.setConnectTimeout(6 * 1000);
@@ -176,7 +175,7 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 						 */
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
 						params.add(new BasicNameValuePair("str", songUri));
-						params.add(new BasicNameValuePair("sid", songid));
+						params.add(new BasicNameValuePair("sid", stringExtra));
 						params.add(new BasicNameValuePair("t", "0"));
 						try {
 							/* 发出HTTP request */
@@ -209,7 +208,7 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 				
 			}}}
 
-			Log.d("doinback", "上面如果没有输出的话就是直接跳过了"+songUri+songid);
+			Log.d("doinback", "上面如果没有输出的话就是直接跳过了"+songUri+stringExtra);
 		return songUri;
 
 		// URI url = new
@@ -217,7 +216,9 @@ public class Urltask extends AsyncTask<Integer, Integer, String> {
 
 		// //
 	}
-
+public String geturlString() {
+	return songUri;
+}
 	public static byte[] readStream(InputStream inputStream) throws Exception {
 		byte[] buffer = new byte[1024];
 		int len = -1;

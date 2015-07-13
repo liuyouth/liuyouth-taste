@@ -17,6 +17,10 @@
 
     <color name="item1" >#8470FF</color>
     <color name="item2" >#00ffffff</color>
+    <color name="seekback" >#f7f2ee</color>
+    <color name="seekhight" >#87CEFA</color>
+    <color name="seekpoint2" >#66FF99</color>
+    <color name="seekpoint1" >#33FFCC</color>
     
 	<string name="stm_url_dajiatuijian">http://www.songtaste.com/music/</string>
 	<string name="stm_zhengze_dajiatuijian">MSL((.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?));</string>
