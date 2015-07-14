@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 	private SeekBar seekBar ;
 	private ImageView singerIMG;
 	private ImageView btn_play,btn_last,btn_next,btn_like;
-	private TextView lab_songName,lab_songid;
+	private TextView lab_songName,lab_songid,lab_taste;
 	
 	
 
@@ -277,8 +277,9 @@ public class MainActivity extends Activity {
 		app.getMusicService1().musicServiceOnCreate(seekBar);
 		lab_songid = (TextView) findViewById(R.id.playingID);
 		lab_songName = (TextView) findViewById(R.id.playingName);
+		lab_taste = (TextView) findViewById(R.id.playingTaste);
 		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
-		app.getMusicService1().initMp3Info(lab_songid, lab_songName, singerIMG);
+		app.getMusicService1().initMp3Info(lab_songid, lab_songName, singerIMG,lab_taste);
 		btn_like = (ImageView) findViewById(R.id.menu_imgbtn_like);
 		btn_play = (ImageView) findViewById(R.id.menu_imgbtn_play);
 		btn_last = (ImageView) findViewById(R.id.menu_imgbtn_last);
@@ -310,9 +311,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-	
-				app.getMusicService1().pause();
+			if (app.getMusicService1().getisPause()) {
+				btn_play.setBackgroundResource(R.drawable.img_button_play_landscape_normal);
+			}else {
+				btn_play.setBackgroundResource(R.drawable.img_button_pause_landscape_normal);
+			}
 		
+			app.getMusicService1().pause();
 			}	
 		
 		});

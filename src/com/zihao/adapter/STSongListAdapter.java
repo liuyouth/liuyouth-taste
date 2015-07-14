@@ -427,6 +427,7 @@ public class STSongListAdapter extends BaseAdapter {
 		if (0 == list.get(position).getIsPlaying()) {
 			
 //			holder.isplaying.setText("_");
+			
 			ListUrltask urltask = new ListUrltask(app,list.get(position).getSongID());
 			urltask.execute();
 			urltask = null;

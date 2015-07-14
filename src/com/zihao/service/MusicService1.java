@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.zihao.Date;
+import com.zihao.R;
 import com.zihao.adapter.STSongMessage;
 
 import android.app.Service;
@@ -43,7 +44,14 @@ public class MusicService1 extends Service implements Serializable {
     boolean isChanging = false;
 	private ImageView singerIMG;
 	private ImageView btn_play,btn_last,btn_next,btn_back;
-	private TextView lab_songName,lab_songid;
+	private TextView lab_songName,lab_songid,lab_taste;
+	public TextView getLab_taste() {
+		return lab_taste;
+	}
+
+
+
+
 	private Date app; 
 	private ArrayList<STSongMessage> list ;
 	
@@ -60,10 +68,11 @@ public class MusicService1 extends Service implements Serializable {
 
 	}
 	
-	public void initMp3Info(TextView ID,TextView Name,ImageView singerImageView) {
+	public void initMp3Info(TextView ID,TextView Name,ImageView singerImageView, TextView lab_taste) {
 		lab_songid = ID ;
 		lab_songName = Name;
 		singerIMG = singerImageView;
+		this.lab_taste = lab_taste;
 	}
 	public void initMp3List( ArrayList<STSongMessage> list,Date app ) {
 		this.list = list ; 
@@ -124,6 +133,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 		mediaPlayer.prepare();
 		mediaPlayer.setLooping(true);
 		seekBar.setMax(mediaPlayer.getDuration());
+		lab_taste.setText("欢迎使用 liuyouth社区软件");
 		mediaPlayer.start();
 		mTimer.schedule(mTimerTask, 0, 10);
 		isPlaying = true;
@@ -158,10 +168,10 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 				if (!isPause) {
 					isChanging = false;
 					mediaPlayer.pause();
-					
 					isPause = true;
 					isPlaying = true;
 				} else {
+					
 					
 					mediaPlayer.start();
 					isChanging = true;
@@ -170,6 +180,16 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 			}
 		}
 	}
+
+	public boolean getisPause() {
+		return isPause;
+	}
+
+
+	public void setPause(boolean isPause) {
+		this.isPause = isPause;
+	}
+
 
 	public void delete() {
 		mediaPlayer.stop();

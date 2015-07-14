@@ -35,12 +35,13 @@ public class ListUrltask extends AsyncTask<Integer, Integer, String> {
 	
 	
 	
+	
 	public ListUrltask(Date app,String songid) {
 		// TODO Auto-generated constructor stub
 		stringExtra = songid;
 ListUrltask.app=app;
-	
-		
+	tv = app.getMusicService1().getLab_taste();
+	tv.setText("ÕýÔÚ»º³å[ "+stringExtra+" ]");
 	}
 
 	
@@ -108,6 +109,8 @@ ListUrltask.app=app;
 	public static String getSongUri(String songid) throws Exception {
 //		URL url1 = new URL("http://www.songtaste.com/song/" + songid + "/");
 		URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
+	
+
 		HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
 		conn.setConnectTimeout(6 * 1000);
 		conn.setRequestMethod("GET");
