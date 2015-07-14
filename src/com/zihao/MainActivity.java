@@ -310,13 +310,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-			if (true==app.getMusicService1().getMediaPlayer().isPlaying() ) {
-				app.getMusicService1().stop();
-			}else if (false==app.getMusicService1().getMediaPlayer().isPlaying()) {
+	
 				app.getMusicService1().pause();
-			}
-			
-			}
+		
+			}	
+		
 		});
 	}
 	

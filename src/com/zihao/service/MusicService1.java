@@ -156,13 +156,15 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 		if (mediaPlayer != null) {
 			if (!isReleased) {
 				if (!isPause) {
-					mTimer.cancel();
+					isChanging = false;
 					mediaPlayer.pause();
+					
 					isPause = true;
 					isPlaying = true;
 				} else {
+					
 					mediaPlayer.start();
-					mTimer.schedule(mTimerTask, 0, 10);
+					isChanging = true;
 					isPause = false;
 				}
 			}
@@ -179,6 +181,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 //		String path = SDCardRoot + File.separator + "mp3" + File.separator
 //				+ mp3Info.getMp3Name();
 		return mp3Info;
+		
 	}
 
 	
@@ -196,9 +199,12 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 
 	    	isTimerRunning = true;
 			if(isChanging==true)//当用户正在拖动进度进度条时不处理进度条的的进度
-
-	           return; 
-          seekBar.setProgress(mediaPlayer.getCurrentPosition());
+				
+			return; 
+			if (isChanging==true) {
+				
+				seekBar.setProgress(mediaPlayer.getCurrentPosition());
+			}
 	    }
 	};
 	
