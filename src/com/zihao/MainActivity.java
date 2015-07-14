@@ -44,7 +44,6 @@ import com.zihao.ui.RefreshableView.PullToRefreshListener;
 public class MainActivity extends Activity {
 
 	  
-	    private ArrayList<STSongMessage> list;// 声明列表容器
 	/** 声明变量 */
 	private tryhttp tryhttp;
 	private STSongListAdapter adapter;
@@ -296,25 +295,48 @@ public class MainActivity extends Activity {
 			}
 		});
 
+		btn_next.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				int inte = app.getPlayingPosition();
+				inte = inte +1 ;
+			playingmusic(inte);
+			}
+		});
+		btn_play.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+			if (true==app.getMusicService1().getMediaPlayer().isPlaying() ) {
+				app.getMusicService1().stop();
+			}else if (false==app.getMusicService1().getMediaPlayer().isPlaying()) {
+				app.getMusicService1().pause();
+			}
+			
+			}
+		});
 	}
 	
 	protected void playingmusic(int position) {
 		// TODO Auto-generated method stub
 		
-		if (0 == list.get(position).getIsPlaying()) {
+		if (0 == app.getList().get(position).getIsPlaying()) {
 			
 //			holder.isplaying.setText("_");
-			ListUrltask urltask = new ListUrltask(app,list.get(position).getSongID());
+			ListUrltask urltask = new ListUrltask(app,app.getList().get(position).getSongID());
 			urltask.execute();
 			urltask = null;
-			list.get(position).setIsPlaying(1);
+			app.getList().get(position).setIsPlaying(1);
 			app.setPlayingPosition(position);
-		} else if (1 == list.get(position).getIsPlaying()) {
+		} else if (1 == app.getList().get(position).getIsPlaying()) {
 			
-      		
+			
 //      		holder.isplaying.setText("");
       	app.getMusicService1().stop();
-      	list.get(position).setIsPlaying(0);}
+      	app.getList().get(position).setIsPlaying(0);}
 		}
 	
     @Override  

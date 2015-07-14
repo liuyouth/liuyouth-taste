@@ -138,27 +138,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 	        });
 	   
 	    }
-public void backplay(String mp3info) throws IllegalArgumentException, SecurityException, IllegalStateException, IOException {
-	
-		
-		mediaPlayer.reset();
-		mediaPlayer.setDataSource(mp3info);
-		mediaPlayer.prepare();
-		mediaPlayer.setLooping(true);
-		mediaPlayer.start();
-		isPlaying = true;
-		isReleased = false;
-		 mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-	            
-	            @Override
-	            public void onCompletion(MediaPlayer mp) {
-	                // TODO Auto-generated method stub
-	                
-	            }
-	        });
-	   
-	    }
-	
+	    
     public void stop() {
     	if (mediaPlayer != null) {
 			if (isPlaying) {
@@ -172,15 +152,17 @@ public void backplay(String mp3info) throws IllegalArgumentException, SecurityEx
 		}
 	}
 
-	private void pause() {
+	public  void pause() {
 		if (mediaPlayer != null) {
 			if (!isReleased) {
 				if (!isPause) {
+					mTimer.cancel();
 					mediaPlayer.pause();
 					isPause = true;
 					isPlaying = true;
 				} else {
 					mediaPlayer.start();
+					mTimer.schedule(mTimerTask, 0, 10);
 					isPause = false;
 				}
 			}
