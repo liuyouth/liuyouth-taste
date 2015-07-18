@@ -17,6 +17,9 @@
 
     <color name="item1" >#8470FF</color>
     <color name="item2" >#00ffffff</color>
+    <color name="cellselet" >#40ffffff</color>
+    <color name="cellunselet" >#20000000</color>
+    
     <color name="seekback" >#f7f2ee</color>
     <color name="seekhight" >#87CEFA</color>
     <color name="seekpoint2" >#66FF99</color>

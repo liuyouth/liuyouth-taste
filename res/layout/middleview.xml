@@ -7,7 +7,80 @@
     
   <!--  android:background="#f7f2ee" --> 
       
-           <LinearLayout 
+       
+            
+    
+   <!--   <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:divider="@null" 
+        android:background="@drawable/menub_bg"
+>
+ -->        
+       <!--   android:background="#00C5CD" -->
+
+       <!--   <ImageButton
+            android:id="@+id/menu_imgbtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/menu" />
+
+        <TextView
+            android:id="@+id/menuListTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+          <ImageButton
+            android:id="@+id/seach_imgbtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+           android:layout_marginTop="0dp"
+           
+            android:background="@drawable/seach" />
+           <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_play"
+        android:layout_alignParentLeft="true" />
+    
+    </RelativeLayout>
+    
+    -->
+ 
+         <com.zihao.ui.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="440dp"
+        android:divider="@null"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        >
+
+        <ListView
+            android:divider="#f7d7eb"
+              android:fadingEdge="none"
+            android:dividerHeight="0.1dp"
+            android:id="@+id/songlistView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+          android:focusable="false"
+        android:cacheColorHint="#00000000"
+             >
+        </ListView>
+    </com.zihao.ui.RefreshableView>
+
+
+       <LinearLayout 
                android:layout_width="fill_parent"
                android:layout_height="95dp"
                android:orientation="vertical"
@@ -25,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
              android:paddingTop="3dp"
-            android:text="@string/app_name"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="12sp" />
                      <com.zihao.ui.AutoScrollTextView
@@ -42,7 +115,9 @@
         android:id="@+id/seekBar1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:layout_alignParentLeft="true"
         android:minHeight="0.5dp"
         android:maxHeight="0.5dp"
@@ -142,85 +217,23 @@
            android:layout_marginLeft="10dp"
            android:layout_marginTop="1dp"
             android:background="@drawable/img_button_next_landscape_normal" />
+                                                   <ImageButton
+            android:id="@+id/menu_imgbtn_next1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="1dp"
+            android:background="@drawable/img_button_next_landscape_normal" />
                                         
                     
             </LinearLayout>
-            
-        </LinearLayout>
+                </LinearLayout>
                                         </LinearLayout>
                                         
 
 
     
            </LinearLayout>
-   <!--   <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:divider="@null" 
-        android:background="@drawable/menub_bg"
->
- -->        
-       <!--   android:background="#00C5CD" -->
-
-       <!--   <ImageButton
-            android:id="@+id/menu_imgbtn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-           android:layout_marginLeft="10dp"
-           android:layout_marginTop="1dp"
-            android:background="@drawable/menu" />
-
-        <TextView
-            android:id="@+id/menuListTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-          <ImageButton
-            android:id="@+id/seach_imgbtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-           android:layout_marginTop="0dp"
-           
-            android:background="@drawable/seach" />
-           <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_play"
-        android:layout_alignParentLeft="true" />
-    
-    </RelativeLayout>
-    
-    -->
- 
-         <com.zihao.ui.RefreshableView
-        android:id="@+id/refreshable_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:divider="@null"
-        >
-
-        <ListView
-            android:divider="#f7d7eb"
-              android:fadingEdge="none"
-            android:dividerHeight="0.1dp"
-            android:id="@+id/songlistView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-          android:focusable="false"
-        android:cacheColorHint="@android:color/transparent"
-             >
-        </ListView>
-    </com.zihao.ui.RefreshableView>
-
-
-     
   
 </LinearLayout>

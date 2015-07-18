@@ -260,7 +260,7 @@ public class STSongListAdapter extends BaseAdapter {
 			holder.songtext = (TextView) convertView.findViewById(R.id.item_songName);
 			holder.item_download = (ImageView) convertView.findViewById(R.id.item_download);
 			holder.item_like = (ImageView) convertView.findViewById(R.id.item_like);
-			holder.item_play = (ImageView) convertView.findViewById(R.id.item_down);
+			holder.item_gengduo = (ImageView) convertView.findViewById(R.id.item_down);
 			holder.footerView = convertView.findViewById(R.id.item_footer);
 			holder.isplaying = (TextView) convertView.findViewById(R.id.lab_playing);
 			convertView.setTag(holder);
@@ -344,7 +344,7 @@ public class STSongListAdapter extends BaseAdapter {
 		
 
 		
-		holder.item_play.setOnClickListener(new View.OnClickListener() {
+		holder.item_gengduo.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -357,8 +357,8 @@ public class STSongListAdapter extends BaseAdapter {
 				holder.footerView.startAnimation(new ViewExpandAnimation(
 						holder.footerView));
 
-				float pivotX = holder.item_play.getWidth() / 2f;
-				float pivotY = holder.item_play.getHeight() / 2f;
+				float pivotX = holder.item_gengduo.getWidth() / 2f;
+				float pivotY = holder.item_gengduo.getHeight() / 2f;
 				float fromDegrees = 0f;
 				float toDegrees = 0f;
 				
@@ -377,7 +377,7 @@ public class STSongListAdapter extends BaseAdapter {
 						pivotX, pivotY);
 				animation.setDuration(400);
 				animation.setFillAfter(true);
-				holder.item_play.startAnimation(animation);
+				holder.item_gengduo.startAnimation(animation);
 			}});
 		
 		
@@ -409,7 +409,7 @@ public class STSongListAdapter extends BaseAdapter {
 		if (list.get(position).getIsOpening() == 1) {
 			holder.footerView.startAnimation(new ViewExpandAnimation(
 					holder.footerView));
-	holder.item_play.setImageResource(list.get(position).getIsPlayingImg());
+	holder.item_gengduo.setImageResource(list.get(position).getIsPlayingImg());
 			
 		
 		}
@@ -453,7 +453,7 @@ public class STSongListAdapter extends BaseAdapter {
 		public LinearLayout item_bg;
 		public ImageView item_download;
 		public ImageView item_like;
-		public ImageView item_play;
+		public ImageView item_gengduo;
 		public View footerView;
 		public TextView isplaying;
 

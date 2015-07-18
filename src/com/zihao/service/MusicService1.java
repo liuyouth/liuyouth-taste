@@ -70,10 +70,11 @@ public class MusicService1 extends Service implements Serializable {
 
 	}
 	
-	public void initMp3Info(AutoScrollTextView Name1,TextView ID,TextView Name,ImageView singerImageView, TextView lab_taste) {
+	public void initMp3Info(AutoScrollTextView Name1,TextView ID,TextView Name,ImageView singerImageView, TextView lab_taste,ImageView palyView) {
 		lab_songid = ID ;
 		lab_songName = Name;
 		lab_songName1 = Name1;
+		btn_play = palyView;
 		
 		singerIMG = singerImageView;
 		this.lab_taste = lab_taste;
@@ -136,6 +137,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 		lab_songName1.init(app.getWindow());
 		lab_songName1.startScroll();
 		lab_songName.setText("");
+		btn_play.setBackgroundResource(R.drawable.img_button_pause_landscape_normal);
 		mediaPlayer.reset();
 		mediaPlayer.setDataSource(mp3info);
 		mediaPlayer.prepare();
@@ -162,6 +164,8 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 			if (isPlaying) {
 				if (!isReleased) {
 					mediaPlayer.stop();
+				lab_songName1.stopScroll();
+				btn_play.setBackgroundResource(R.drawable.img_button_play_landscape_normal);
 					mediaPlayer.release();
 					isReleased = true;
 				}
@@ -176,11 +180,15 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 				if (!isPause) {
 					isChanging = false;
 					mediaPlayer.pause();
+					lab_songName1.stopScroll();
+					btn_play.setBackgroundResource(R.drawable.img_button_play_landscape_normal);
 					isPause = true;
 					isPlaying = true;
 				} else {
 					
 					
+					btn_play.setBackgroundResource(R.drawable.img_button_pause_landscape_normal);
+					lab_songName1.startScroll();
 					mediaPlayer.start();
 					isChanging = true;
 					isPause = false;

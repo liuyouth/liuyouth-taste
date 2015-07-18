@@ -21,6 +21,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -101,6 +102,7 @@ public class MainActivity extends Activity {
 					}
 				});
 
+	
 		// 设置list数据
 
 		List<Map<String, Object>> data1 = new ArrayList<Map<String, Object>>();
@@ -162,7 +164,7 @@ public class MainActivity extends Activity {
 				mDragLayout.close();
 				listRefresh();
 				Log.d("listindex", String.format("%s", arg2));
-				menuListTop.setText("正在读取数据..."+sTMenuStrings[arg2]);
+//				menuListTop.setText("正在读取数据..."+sTMenuStrings[arg2]);
 				
 			}
 			
@@ -174,9 +176,11 @@ public class MainActivity extends Activity {
 
 		
 		songListView = (ListView) findViewById(R.id.songlistView);
+	
+
 //		设置列表动画
 	    AnimationSet set = new AnimationSet(true);
-			Animation animation = new TranslateAnimation(500, 0, 0, 0);
+			Animation animation = new TranslateAnimation(0, 000, 500, 0);
 			animation.setDuration(500);
 			Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
 		    alphaAnimation.setDuration(500);
@@ -189,10 +193,9 @@ public class MainActivity extends Activity {
 		indexMenu =  getString(R.string.stm_url_dajiatuijian);
 		zhengze = getString(R.string.stm_zhengze_dajiatuijian);
 		songListView.setItemsCanFocus(true);
-		menuListTop.setText(sTMenuStrings[1]);
 		
 		try {
-			GetMenu getMenu = new GetMenu(this,app, songListView, indexMenu, zhengze, sNameNumb, sIdNumb, singerNumb, sImgNumb,(String) menuListTop.getText());
+			GetMenu getMenu = new GetMenu(this,app, songListView, indexMenu, zhengze, sNameNumb, sIdNumb, singerNumb, sImgNumb,sTMenuStrings[1]);
 			getMenu.execute();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -233,6 +236,7 @@ public class MainActivity extends Activity {
 						adapter.notifyDataSetChanged();
 						songListView.refreshDrawableState();
 						refreshableView.finishRefreshing();
+				
 					}
 				}.execute(null, null, null);
 			}
@@ -280,17 +284,26 @@ public class MainActivity extends Activity {
 		lab_songid = (TextView) findViewById(R.id.playingID);
 		lab_songName = (TextView) findViewById(R.id.playingName);
 		lab_songName1 = (AutoScrollTextView) findViewById(R.id.playingName1);
-		lab_songName1.setText("swewe");
+		
 		lab_songName1.init(getWindowManager());
 		app.setWindow(getWindowManager());
-		lab_songName1.startScroll();
+	
 		lab_taste = (TextView) findViewById(R.id.playingTaste);
 		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
-		app.getMusicService1().initMp3Info(lab_songName1,lab_songid, lab_songName, singerIMG,lab_taste);
-		btn_like = (ImageView) findViewById(R.id.menu_imgbtn_like);
 		btn_play = (ImageView) findViewById(R.id.menu_imgbtn_play);
+		app.getMusicService1().initMp3Info(lab_songName1,lab_songid, lab_songName, singerIMG,lab_taste,btn_play);
+		btn_like = (ImageView) findViewById(R.id.menu_imgbtn_like);
 		btn_last = (ImageView) findViewById(R.id.menu_imgbtn_last);
 		btn_next = (ImageView) findViewById(R.id.menu_imgbtn_next);
+		ImageView btn_sView = (ImageView) findViewById(R.id.menu_imgbtn_next1);
+		btn_sView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+			
+			}
+		});
 		btn_last.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -319,9 +332,9 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 			if (app.getMusicService1().getisPause()) {
-				btn_play.setBackgroundResource(R.drawable.img_button_play_landscape_normal);
-			}else {
 				btn_play.setBackgroundResource(R.drawable.img_button_pause_landscape_normal);
+			}else {
+				btn_play.setBackgroundResource(R.drawable.img_button_play_landscape_normal);
 			}
 		
 			app.getMusicService1().pause();
