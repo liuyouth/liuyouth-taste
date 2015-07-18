@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import com.zihao.Date;
 import com.zihao.R;
 import com.zihao.adapter.STSongMessage;
+import com.zihao.ui.AutoScrollTextView;
 
 import android.app.Service;
 import android.content.Intent;
@@ -45,6 +46,7 @@ public class MusicService1 extends Service implements Serializable {
 	private ImageView singerIMG;
 	private ImageView btn_play,btn_last,btn_next,btn_back;
 	private TextView lab_songName,lab_songid,lab_taste;
+	private AutoScrollTextView lab_songName1;
 	public TextView getLab_taste() {
 		return lab_taste;
 	}
@@ -68,9 +70,11 @@ public class MusicService1 extends Service implements Serializable {
 
 	}
 	
-	public void initMp3Info(TextView ID,TextView Name,ImageView singerImageView, TextView lab_taste) {
+	public void initMp3Info(AutoScrollTextView Name1,TextView ID,TextView Name,ImageView singerImageView, TextView lab_taste) {
 		lab_songid = ID ;
 		lab_songName = Name;
+		lab_songName1 = Name1;
+		
 		singerIMG = singerImageView;
 		this.lab_taste = lab_taste;
 	}
@@ -127,7 +131,11 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 
 		lab_songid.setText(list.get(app.getPlayingPosition()).getSongID());
 		singerIMG.setImageBitmap(list.get(app.getPlayingPosition()).getSingerImg());
-		lab_songName.setText(list.get(app.getPlayingPosition()).getSongName());
+		
+		lab_songName1.setText(list.get(app.getPlayingPosition()).getSongName());
+		lab_songName1.init(app.getWindow());
+		lab_songName1.startScroll();
+		lab_songName.setText("");
 		mediaPlayer.reset();
 		mediaPlayer.setDataSource(mp3info);
 		mediaPlayer.prepare();

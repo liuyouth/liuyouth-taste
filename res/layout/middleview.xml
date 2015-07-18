@@ -16,14 +16,25 @@
                <FrameLayout android:layout_width="fill_parent"
                    android:layout_height="wrap_content"
                    >
-                       <TextView
+                      
+                   
+                 
+                   <TextView
             android:id="@+id/playingName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
              android:paddingTop="3dp"
             android:text="@string/app_name"
-            
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+                     <com.zihao.ui.AutoScrollTextView
+            android:id="@+id/playingName1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+             android:paddingTop="3dp"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
                    
