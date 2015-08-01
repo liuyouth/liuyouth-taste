@@ -1,18 +1,20 @@
 package com.zihao;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.appwidget.AppWidgetProviderInfo;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,10 +23,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -36,10 +36,10 @@ import android.widget.Toast;
 import com.zihao.adapter.GetMenu;
 import com.zihao.adapter.STSongListAdapter;
 import com.zihao.adapter.STSongListAdapter.ViewHolder;
-import com.zihao.adapter.STSongMessage;
 import com.zihao.adapter.tryhttp;
 import com.zihao.ui.AutoScrollTextView;
 import com.zihao.ui.DragLayout;
+import com.zihao.ui.SegmentControl;
 import com.zihao.ui.DragLayout.DragListener;
 import com.zihao.ui.RefreshableView.PullToRefreshListener;
 
@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
 	private com.zihao.ui.RefreshableView refreshableView;
 	private ListView menuListView, songListView;// 设置ListView变量
 	private ImageButton menuSettingBtn;// 声明liftMenuBar 左边窗口
+	private SegmentControl m_SegmentControl ;
 	private String[] sTMenuStrings = { "Home", "Anything",
 			"China", "Cantonese", "English",
 			"Other", "J&K" };
@@ -78,8 +79,22 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+	    final Handler msgHandler = new Handler(){  
+	       
+	    	public void handleMessage(Message msg) {  
+	                switch (msg.arg1) {  
+	                case R.string.msg_not_network:  
+	                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_not_network), Toast.LENGTH_SHORT).show();  
+	                        break;  
+	                default:  
+	                        break;  
+	                }  
+	        }  
+	};  
 		
 	   app = (Date) getApplication();
+	   
+	   app.setHandler(msgHandler);
 		/**
 		 * 设置列表 设置窗体
 		 */
@@ -162,6 +177,7 @@ public class MainActivity extends Activity {
 					break;
 				}
 				mDragLayout.close();
+			
 				listRefresh();
 				Log.d("listindex", String.format("%s", arg2));
 //				menuListTop.setText("正在读取数据..."+sTMenuStrings[arg2]);
@@ -174,7 +190,6 @@ public class MainActivity extends Activity {
 		initPlay();
 
 
-		
 		songListView = (ListView) findViewById(R.id.songlistView);
 	
 
@@ -253,6 +268,7 @@ public class MainActivity extends Activity {
 		});
 	}
 	private void listRefresh() {
+	songListView.removeAllViewsInLayout();
 		new AsyncTask<Void, Void, Void>() {
 			protected Void doInBackground(Void... params) {
 				try {
@@ -284,10 +300,9 @@ public class MainActivity extends Activity {
 		lab_songid = (TextView) findViewById(R.id.playingID);
 		lab_songName = (TextView) findViewById(R.id.playingName);
 		lab_songName1 = (AutoScrollTextView) findViewById(R.id.playingName1);
-		
+		m_SegmentControl = (SegmentControl) findViewById(R.id.segment);
 		lab_songName1.init(getWindowManager());
 		app.setWindow(getWindowManager());
-	
 		lab_taste = (TextView) findViewById(R.id.playingTaste);
 		singerIMG = (ImageView) findViewById(R.id.img_singerimg);
 		btn_play = (ImageView) findViewById(R.id.menu_imgbtn_play);
@@ -295,6 +310,38 @@ public class MainActivity extends Activity {
 		btn_like = (ImageView) findViewById(R.id.menu_imgbtn_like);
 		btn_last = (ImageView) findViewById(R.id.menu_imgbtn_last);
 		btn_next = (ImageView) findViewById(R.id.menu_imgbtn_next);
+		m_SegmentControl.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
+			
+			@Override
+			public void onSegmentControlClick(int index) {
+				// TODO Auto-generated method stub
+				
+				switch (index) {
+				
+				
+				case 0:
+					sNameNumb=2;
+					sIdNumb=3;
+					sImgNumb=6;
+					singerNumb=4;
+					indexMenu =  getString(R.string.stm_url_dajiatuijian);
+					zhengze = getString(R.string.stm_zhengze_dajiatuijian);
+					break;
+				case 1:
+					sNameNumb=4	;	
+					sIdNumb=3;
+					sImgNumb=7;singerNumb=8;
+					indexMenu =  getString(R.string.stm_url_yz_suoyou);
+					zhengze = getString(R.string.stm_zhengze_yz);
+					break;
+				default:
+					break;
+				}
+				listRefresh();
+//				songListView.setSelectionFromTop(1, 100);
+			
+			}
+		});
 		ImageView btn_sView = (ImageView) findViewById(R.id.menu_imgbtn_next1);
 		btn_sView.setOnClickListener(new View.OnClickListener() {
 			
@@ -378,8 +425,11 @@ public class MainActivity extends Activity {
                                 @Override  
                                 public void onClick(DialogInterface dialog,  
                                         int which) {  
+                                	
                                 	app.getMusicService1().stopSelf();
                                 	System.exit(0); // 停止后台服务  
+                                	ActivityManager am = (ActivityManager)getSystemService (Context.ACTIVITY_SERVICE);
+                                	  am.restartPackage(getPackageName()); 
                                 }  
                             }).show();  
   

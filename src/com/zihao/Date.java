@@ -6,6 +6,7 @@ import com.zihao.adapter.STSongMessage;
 import com.zihao.service.MusicService1;
 
 import android.app.Application;
+import android.os.Handler;
 import android.view.WindowManager;
 
 public class Date extends Application {
@@ -15,6 +16,7 @@ public class Date extends Application {
 	private int playingPosition;
 	private ArrayList<STSongMessage> list ;
 	private WindowManager wm;
+	private Handler handler;
 	
 	
 
@@ -84,5 +86,17 @@ public class Date extends Application {
 	public WindowManager getWindow() {
 		// TODO Auto-generated method stub
 		return wm;
+	}
+
+
+
+	public Handler getHandler() {
+		return handler;
+	}
+
+
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
 	}
 }

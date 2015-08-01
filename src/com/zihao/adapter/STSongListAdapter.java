@@ -283,7 +283,7 @@ public class STSongListAdapter extends BaseAdapter {
 //		});
 		
 		holder.songtext.setText(list.get(position).getSongName());
-		holder.text.setText(list.get(position).getSongID());
+		holder.text.setText("ID: "+list.get(position).getSongID());
 //		设置item这一行的背景  与动画
 //		holder.item_bg.setBackgroundResource((position & 1) == 1 ? R.color.item1 : 0);
 //		holder.item_bg.setBackgroundResource(R.color.item1);
@@ -296,7 +296,8 @@ public class STSongListAdapter extends BaseAdapter {
 	        set.addAnimation(alphaAnimation);		
 			LayoutAnimationController laController = new LayoutAnimationController(set);
 			laController.setOrder(LayoutAnimationController.ORDER_NORMAL);
-			holder.item_bg.setLayoutAnimation(laController);
+			
+//		((ViewGroup) convertView).setLayoutAnimation(laController);
 
 //		设置这一行item的歌曲名字 被点击的事件
 		holder.item_bg.setOnClickListener(new View.OnClickListener() {

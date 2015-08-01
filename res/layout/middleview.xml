@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg3"
-    android:orientation="vertical" >
+    android:background="#cccccc"
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.zihao">
     
   <!--  android:background="#f7f2ee" --> 
       
@@ -56,18 +56,47 @@
     </RelativeLayout>
     
     -->
- 
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#333333"
+   >
+   <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    
+   >
+  <com.zihao.ui.SegmentControl 
+     android:id="@+id/segment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="13sp"
+    app:texts="大家推荐|一周排行 "
+    app:colors="#FF6666"
+    app:cornerRadius="5dip"
+    app:verticalGap="8dip"
+    app:direction="horizon"
+    app:horizonGap="8dip"
+    android:layout_gravity="center"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+      />
+  </LinearLayout>
+   </LinearLayout>
          <com.zihao.ui.RefreshableView
         android:id="@+id/refreshable_view"
         android:layout_width="fill_parent"
-        android:layout_height="440dp"
+        android:layout_height="400dp"
         android:divider="@null"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:paddingRight="10dp"
         >
 
         <ListView
-            android:divider="#f7d7eb"
+            android:divider="#30f7d7eb"
               android:fadingEdge="none"
             android:dividerHeight="0.1dp"
             android:id="@+id/songlistView"
@@ -84,8 +113,8 @@
                android:layout_width="fill_parent"
                android:layout_height="95dp"
                android:orientation="vertical"
-               android:background="#40ffffff">
-                     
+               android:background="#333333">
+       
                <FrameLayout android:layout_width="fill_parent"
                    android:layout_height="wrap_content"
                    >
@@ -110,7 +139,7 @@
             android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
-                   
+ 
                <SeekBar
         android:id="@+id/seekBar1"
         android:layout_width="fill_parent"

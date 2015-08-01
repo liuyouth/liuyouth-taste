@@ -22,8 +22,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.os.AsyncTask;
+import android.os.Message;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListUrltask extends AsyncTask<Integer, Integer, String> {
@@ -107,28 +107,29 @@ ListUrltask.app=app;
 	
 
 	public static String getSongUri(String songid) throws Exception {
-//		URL url1 = new URL("http://www.songtaste.com/song/" + songid + "/");
-		URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
+URL url1 = new URL("http://www.songtaste.com/song/" + songid + "/");
+//	URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
 	
 
 		HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
 		conn.setConnectTimeout(6 * 1000);
 		conn.setRequestMethod("GET");
 		if (conn.getResponseCode() == 200) {
-			System.out.println("歌曲网页读取成功");
 			InputStream inputStream = conn.getInputStream();
 			byte[] data = readStream(inputStream);
 			String html = new String(data, "gb2312");
-			Pattern p = Pattern.compile("WrtSongLine((.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?));",
+			Pattern p = Pattern.compile("playmedia1((.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?));",
 					Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 			Matcher m = p.matcher(html);
 			while (m.find()) {
-				songUri = m.group(8);
+				System.out.println("1+"+m.group());
+				songUri = m.group(4);
+				System.out.println(songUri);
 				String regEx = "\"+"; // 表示一个或多个@
 				Pattern pat = Pattern.compile(regEx);
 				Matcher mat1 = pat.matcher(songUri);
 				songUri= mat1.replaceAll("");
-			    songUri=songUri.substring(1, songUri.length()-1);
+			    songUri=songUri.substring(2, songUri.length()-1);
 			    Log.i("第一次正则取到的数据", songUri);
 		        URI url = new URI("http://www.songtaste.com/time.php");
 				HttpPost httpRequest = new HttpPost(url);
@@ -147,7 +148,7 @@ ListUrltask.app=app;
 					HttpResponse httpResponse = new DefaultHttpClient()
 							.execute(httpRequest);
 					/* 若状态码为200 ok */
-					System.out.println("第2个取到数据了");
+					
 					if (httpResponse.getStatusLine().getStatusCode() == 200) {
 						/* 取出响应字符串 */
 						songUri = EntityUtils
@@ -166,70 +167,33 @@ ListUrltask.app=app;
 					// mTextView1.setText(e.getMessage().toString());
 					e.printStackTrace();
 				}
-				Log.d("tureurl111", songUri);
+				
 
-			}}
+			}
+			System.out.println(songUri);
 			if (songUri.equals("http://songtaste.com/404.html?3=")) {
 				
-			
-				URL url2 = new URL("http://www.songtaste.com/song/" + songid + "/");
-//				URL url1 = new URL("http://www.songtaste.com/playmusic.php?song_id=" + songid + "/");
-				HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
-				conn2.setConnectTimeout(6 * 1000);
-				conn2.setRequestMethod("GET");
-				if (conn.getResponseCode() == 200) {
-					System.out.println("歌曲网页读取成功");
-					InputStream inputStream2 = conn2.getInputStream();
-					byte[] data2 = readStream(inputStream2);
-					String html2 = new String(data2, "gb2312");
-					Pattern p2 = Pattern.compile("strURL =(.*?)\"(.*?)\"",
+				
+				
+					String html2 = html ; 
+					System.out.println("第二次取链接");
+					Pattern p2 = Pattern.compile("x' src=\'http(.*)mp3\'>",
 							Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 					Matcher m2 = p2.matcher(html2);
-					if (m2.find()) {
-						songUri = m2.group(2);
-						
-						Log.i("第二次正则取到的数据", songUri);
-						URI url = new URI("http://www.songtaste.com/time.php");
-						HttpPost httpRequest = new HttpPost(url);
-						/*
-						 * Post运作传送变量必须用NameValuePair[]数组储存
-						 */
-						List<NameValuePair> params = new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("str", songUri));
-						params.add(new BasicNameValuePair("sid", songid));
-						params.add(new BasicNameValuePair("t", "0"));
-						try {
-							/* 发出HTTP request */
-							httpRequest.setEntity(new UrlEncodedFormEntity(params,
-									HTTP.UTF_8));
-							/* 取得HTTP response */
-							HttpResponse httpResponse = new DefaultHttpClient()
-									.execute(httpRequest);
-							/* 若状态码为200 ok */
-							System.out.println("第2个取到数据了");
-							if (httpResponse.getStatusLine().getStatusCode() == 200) {
-								/* 取出响应字符串 */
-								songUri = EntityUtils
-										.toString(httpResponse.getEntity());
-								// mTextView1.setText(strResult);
-							} else {
-								// mTextView1.setText("Error Response: "+httpResponse.getStatusLine().toString());
-							}
-						} catch (ClientProtocolException e) {
-							// mTextView1.setText(e.getMessage().toString());
-							e.printStackTrace();
-						} catch (IOException e) {
-							// mTextView1.setText(e.getMessage().toString());
-							e.printStackTrace();
-						} catch (Exception e) {
-							// mTextView1.setText(e.getMessage().toString());
-							e.printStackTrace();
-						}
+					while (m2.find()) {
+						songUri = m2.group(1);
+						songUri = "http"+songUri+"mp3";
+						System.out.println(songUri+"第二次正则");
 						Log.d("tureurl222", songUri);
 				
 			}}}
-
+				
 			Log.d("doinback", "上面如果没有输出的话就是直接跳过了"+songUri+songid);
+			if (songUri.equals("http://songtaste.com/404.html?3=")) {
+				Message msg = app.getHandler().obtainMessage();  
+				msg.arg1 = R.string.msg_not_network;  
+				app.getHandler().sendMessage(msg);  
+			}
 		return songUri;
 
 		// URI url = new

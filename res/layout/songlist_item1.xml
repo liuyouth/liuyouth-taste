@@ -10,27 +10,30 @@
     >
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="45dp"
+    android:layout_height="60dp"
     android:id="@+id/item_header"
-    android:background="#00ffffff"
+    android:background="#00fffdfd"
     android:orientation="horizontal">
     
     <TextView
-        android:id="@+id/lab_playing"
+       android:id="@+id/item_songSingerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#54FF9F"
-        android:background="#54FF9F"
+        android:textColor="#666666"
+        android:paddingLeft="10dp"
+        android:text="上传者"
+        android:textSize="10sp"
         />
-        
 
      <TextView
             android:id="@+id/item_songName"
-            android:layout_width="280dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:textSize="13sp" 
+            android:paddingTop="8dp"
+            android:textSize="12sp" 
             android:paddingLeft="10dp"
-            android:textColor="#ffffff"
+            android:textColor="#000000"
+            android:text="歌曲名称"
             android:layout_centerVertical="true"
             
             />
@@ -44,9 +47,17 @@
         android:divider="@null"
         android:focusable="true"
         android:paddingRight="0dp"/>
-    
-   
 
+        <TextView
+            android:id="@+id/item_songID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingRight="10dp"
+            android:text="1231231"
+            android:textColor="#666666"
+            android:textSize="10sp" />
     
 </RelativeLayout>
   
@@ -57,23 +68,15 @@
     android:id="@+id/item_footer"
     android:background="#40ffffff">
     
-     <TextView
-         android:layout_alignParentLeft="true"
-         
-        android:id="@+id/item_songID"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#ffffff" 
-        />
+     
     <TextView
-    android:layout_above="@+id/item_songSingerName"
-    android:id="@+id/item_songSingerName"
+      android:id="@+id/lab_playing"
+    
     android:layout_width="170dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:textColor="#ffffff"
-    android:textSize="14sp" />
+    android:textSize="12sp" />
      <ImageView
          android:id="@+id/item_download"
    android:src="@drawable/item_dwonload"

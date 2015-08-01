@@ -55,6 +55,7 @@ public class GetSongURL {
 			Matcher m = p.matcher(html);
 				while (m.find()) {
 					songUri = m.group(2);
+					System.out.println(songUri);
 					
 					URI url = new URI("http://www.songtaste.com/time.php");
 					HttpPost httpRequest = new HttpPost(url);   
@@ -65,7 +66,7 @@ public class GetSongURL {
 					params.add(new BasicNameValuePair("str", songUri));   
 					params.add(new BasicNameValuePair("sid", songid));   
 					params.add(new BasicNameValuePair("t", "0"));   
-					Log.d("uirsongidkey", songid);
+					Log.d("songidkey", songid);
 					try   
 					{   
 						/*·¢³öHTTP request*/  

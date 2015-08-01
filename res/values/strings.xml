@@ -5,6 +5,7 @@
     <string name="app_by_name">by:LiuYouth.com</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="msg_not_network">获取歌曲失败</string>
     <string-array name="STListName">
         <item >大家推荐</item>
         <item >【一周推荐】所有排行</item>
@@ -17,14 +18,13 @@
 
     <color name="item1" >#8470FF</color>
     <color name="item2" >#00ffffff</color>
-    <color name="cellselet" >#40ffffff</color>
-    <color name="cellunselet" >#20000000</color>
+    <color name="cellselet" >#2aeca5</color>
+    <color name="cellunselet" >#ffffff</color>
     
     <color name="seekback" >#f7f2ee</color>
     <color name="seekhight" >#87CEFA</color>
     <color name="seekpoint2" >#66FF99</color>
     <color name="seekpoint1" >#33FFCC</color>
-    
 	<string name="stm_url_dajiatuijian">http://www.songtaste.com/music/</string>
 	<string name="stm_zhengze_dajiatuijian">MSL((.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?));</string>
 	<string name="stm_zhengze_songurl">WrtSongLine((.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?));</string>
