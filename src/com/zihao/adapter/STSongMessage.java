@@ -127,7 +127,7 @@ public class STSongMessage {
 		
 		
 		
-	Log.i("intent数据加载", "完毕"+getSongID());
+	Log.i("intent", "id"+getSongID());
 		getContext().startActivity(getPlayIntent());
 		
 	}

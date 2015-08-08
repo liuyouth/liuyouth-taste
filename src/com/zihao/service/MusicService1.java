@@ -93,7 +93,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 
 	                  // TODO Auto-generated method stub
 
-	                  //µ±ÍÏ¶¯Í£Ö¹ºó£¬¿ØÖÆmediaPlayer²¥·ÅÖ¸¶¨Î»ÖÃµÄÒôÀÖ
+	                  //æ’­æ”¾å™¨è¿›åº¦æ¡
 
 	                  mediaPlayer.seekTo(seekBar.getProgress());
 
@@ -143,7 +143,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 		mediaPlayer.prepare();
 		mediaPlayer.setLooping(true);
 		seekBar.setMax(mediaPlayer.getDuration());
-		lab_taste.setText("»¶Ó­Ê¹ÓÃ liuyouthÉçÇøÈí¼ş");
+		lab_taste.setText(" liuyouthç¤¾åŒºè½¯ä»¶");
 		mediaPlayer.start();
 		mTimer.schedule(mTimerTask, 0, 10);
 		isPlaying = true;
@@ -223,7 +223,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 	
 	
 
-	//----------¶¨Ê±Æ÷¼ÇÂ¼²¥·Å½ø¶È---------//
+	//----------ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Å½ï¿½ï¿½ï¿½---------//
 
 	Timer mTimer = new Timer();
 
@@ -234,7 +234,7 @@ public void musicServiceOnCreate(SeekBar seekBar) {
 	    public void run() {
 
 	    	isTimerRunning = true;
-			if(isChanging==true)//µ±ÓÃ»§ÕıÔÚÍÏ¶¯½ø¶È½ø¶ÈÌõÊ±²»´¦Àí½ø¶ÈÌõµÄµÄ½ø¶È
+			if(isChanging==true)//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÄ½ï¿½ï¿½ï¿½
 				
 			return; 
 			if (isChanging==true) {

@@ -58,26 +58,16 @@
     -->
 <LinearLayout 
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="#333333"
    >
-      <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-           android:layout_marginLeft="10dp"
-           android:layout_marginRight="10dp"
-           android:layout_gravity="center_vertical"
-            android:background="@drawable/menu" />
    <LinearLayout 
-    android:layout_width="230dp"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     
    >
-   
   <com.zihao.ui.SegmentControl 
      android:id="@+id/segment"
     android:layout_width="wrap_content"
@@ -90,20 +80,11 @@
     app:direction="horizon"
     app:horizonGap="8dip"
     android:layout_gravity="center"
-   
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
       />
   </LinearLayout>
-     <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-           android:layout_marginLeft="10dp"
-           android:layout_gravity="center_vertical"
-           android:layout_marginRight="10dp"
-            android:background="@drawable/menu" />
    </LinearLayout>
-   
-<!-- 列表加载 -->
          <com.zihao.ui.RefreshableView
         android:id="@+id/refreshable_view"
         android:layout_width="fill_parent"

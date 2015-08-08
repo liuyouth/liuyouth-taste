@@ -156,7 +156,7 @@ in (inches), mm (millimeters).
     }
     public static final class id {
         public static final int SecondaryProgress=0x01010000;
-        public static final int action_settings=0x7f04003f;
+        public static final int action_settings=0x7f040045;
         public static final int arrow=0x7f04002f;
         public static final int btn=0x7f04000e;
         public static final int btn_back=0x7f04000f;
@@ -179,7 +179,9 @@ in (inches), mm (millimeters).
         public static final int item_download=0x7f04003b;
         public static final int item_footer=0x7f040039;
         public static final int item_header=0x7f040034;
-        public static final int item_img=0x7f04003d;
+        public static final int item_img=0x7f040043;
+        public static final int item_img1=0x7f04003d;
+        public static final int item_img2=0x7f040040;
         public static final int item_like=0x7f04003c;
         public static final int item_songID=0x7f040038;
         public static final int item_songName=0x7f040036;
@@ -215,9 +217,13 @@ in (inches), mm (millimeters).
         public static final int seekBar11=0x7f04001c;
         public static final int segment=0x7f040020;
         public static final int songlistView=0x7f040022;
-        public static final int songlist_text=0x7f04003e;
+        public static final int songlist_text=0x7f040044;
         public static final int ssss=0x7f04000a;
         public static final int textView1=0x7f040016;
+        public static final int tv_menuFrom1=0x7f04003f;
+        public static final int tv_menuFrom2=0x7f040042;
+        public static final int tv_menuName1=0x7f04003e;
+        public static final int tv_menuName2=0x7f040041;
         public static final int updated_at=0x7f040032;
         public static final int vertical=0x7f040001;
     }
@@ -229,11 +235,12 @@ in (inches), mm (millimeters).
         public static final int activity_seach=0x7f030004;
         public static final int menulist_item_text=0x7f030005;
         public static final int middleview=0x7f030006;
-        public static final int pull_to_refresh=0x7f030007;
-        public static final int songlist_item1=0x7f030008;
-        public static final int songlist_item2=0x7f030009;
-        public static final int songlist_item3=0x7f03000a;
-        public static final int songlist_item_text=0x7f03000b;
+        public static final int middleview1=0x7f030007;
+        public static final int pull_to_refresh=0x7f030008;
+        public static final int songlist_item1=0x7f030009;
+        public static final int songlist_item2=0x7f03000a;
+        public static final int songlist_item3=0x7f03000b;
+        public static final int songlist_item_text=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
